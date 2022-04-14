@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+/**
+ *
+ */
 public class MapView extends Fragment {
 
     ImageButton searchButton;
