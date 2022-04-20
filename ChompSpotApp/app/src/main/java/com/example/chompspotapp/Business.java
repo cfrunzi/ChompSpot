@@ -4,12 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Business implements Parcelable {
-    private String name, type, hours, distance, busy, address, phone, latitude, longitude;
+    private String name, type, hours, distance, busy, address, phone;
+    private double latitude, longitude;
 
     public Business (){
         // empty
     }
-    public Business(String name, String type, String hours, String distance, String busy, String address, String phone, String latitude, String longitude) {
+    public Business(String name, String type, String hours, String distance, String busy, String address, String phone, double latitude, double longitude) {
         this.name = name;
         this.type = type;
         this.hours = hours;
@@ -27,8 +28,8 @@ public class Business implements Parcelable {
         hours = in.readString();
         distance = in.readString();
         busy = in.readString();
-        latitude = in.readString();
-        longitude = in.readString();
+        latitude = Double.valueOf(in.readString());
+        longitude = Double.valueOf(in.readString());
     }
 
     public static final Creator<Business> CREATOR = new Creator<Business>() {
@@ -98,8 +99,8 @@ public class Business implements Parcelable {
         parcel.writeString(this.type);
         parcel.writeString(this.distance);
         parcel.writeString(this.hours);
-        parcel.writeString(this.latitude);
-        parcel.writeString(this.longitude);
+        parcel.writeString(String.valueOf(this.latitude));
+        parcel.writeString(String.valueOf(this.longitude));
     }
 
     public String getAddress() {
@@ -110,11 +111,11 @@ public class Business implements Parcelable {
         return phone;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -126,11 +127,11 @@ public class Business implements Parcelable {
         this.phone = phone;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 }

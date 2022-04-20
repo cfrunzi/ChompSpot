@@ -49,10 +49,10 @@ public class ListSearchAdapter extends Fragment {
         }
 
         // temporary variables until maps implemented
-        businesses.add(new Business("Mel's Diner","American","5 AM-6 PM", "0.6", "busy", "651 N. Ave", "(704) 655-6281", "1", "1"));
-        businesses.add(new Business("Taco Shack","Mexican","8 AM-9 PM","2.3","slow", "331 5th St", "(704) 635-5175", "1", "1"));
-        businesses.add(new Business("Chx Coop","American","12 PM-10 PM","5.3","moderate", "221 Kentucky Blvd", "(704) 625-1331", "1", "1"));
-        businesses.add(new Business("Bob's Burgers","Canadian","6 AM-10 PM","7.3","slow", "9201 Hamster Lane", "(704) 644-4098", "1", "1"));
+        businesses.add(new Business("Mel's Diner","American","5 AM-6 PM", "0.6", "busy", "651 N. Ave", "(704) 655-6281", 1, 1));
+        businesses.add(new Business("Taco Shack","Mexican","8 AM-9 PM","2.3","slow", "331 5th St", "(704) 635-5175", 1, 1));
+        businesses.add(new Business("Chx Coop","American","12 PM-10 PM","5.3","moderate", "221 Kentucky Blvd", "(704) 625-1331", 81, 1));
+        businesses.add(new Business("Bob's Burgers","Canadian","6 AM-10 PM","7.3","slow", "9201 Hamster Lane", "(704) 644-4098", 1, 1));
     }
 
     @Override

@@ -56,4 +56,12 @@
         app:layout_constraintStart_toEndOf="@+id/menu_button_adb"
         app:layout_constraintTop_toTopOf="@+id/menu_button_adb" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.chompspotapp.MapsFragment"
+        android:layout_width="411dp"
+        android:layout_height="666dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="64dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
