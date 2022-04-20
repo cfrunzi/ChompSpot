@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListSearch" >
+    tools:context=".OldListSearch" >
 
     <Button
         android:id="@+id/mel_button3"
@@ -123,8 +123,10 @@
         android:src="@drawable/green"
         app:layout_constraintBottom_toBottomOf="@+id/menu_button_lsts"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/menu_button_lsts"

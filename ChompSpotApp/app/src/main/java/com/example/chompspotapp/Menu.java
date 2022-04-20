@@ -51,7 +51,7 @@ public class Menu extends Fragment {
         view.findViewById(R.id.list_search_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mfListener.goToListSearch();
+                mfListener.goToListSearch("");
             }
         });
 
@@ -93,8 +93,7 @@ public class Menu extends Fragment {
 
     interface menuFragmentListener {
         void goToMapView();
-        void goToMapSearch();
-        void goToListSearch();
+        void goToListSearch(String s);
         void goToAboutUs();
         void goToContact();
         void goToBusiness();

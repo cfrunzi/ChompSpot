@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapOverlay">
+
+    <ImageButton
+        android:id="@+id/back_button_tmp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:backgroundTint="#63B836"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backarrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/innerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="128dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button_tmp">
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/green"
+            app:layout_constraintBottom_toBottomOf="@+id/innerLayout"
+            app:layout_constraintEnd_toEndOf="@+id/innerLayout"
+            app:layout_constraintStart_toStartOf="@+id/innerLayout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nameOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Name"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView32"
+            app:layout_constraintStart_toStartOf="@+id/innerLayout"
+            app:layout_constraintTop_toTopOf="@+id/innerLayout" />
+
+        <TextView
+            android:id="@+id/addressOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="651 N. Avenue"
+            app:layout_constraintEnd_toEndOf="@+id/nameOverlay"
+            app:layout_constraintStart_toStartOf="@+id/nameOverlay"
+            app:layout_constraintTop_toBottomOf="@+id/nameOverlay" />
+
+        <TextView
+            android:id="@+id/hoursOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="5 AM - 6 PM"
+            app:layout_constraintEnd_toEndOf="@+id/addressOverlay"
+            app:layout_constraintStart_toStartOf="@+id/addressOverlay"
+            app:layout_constraintTop_toBottomOf="@+id/addressOverlay" />
+
+        <TextView
+            android:id="@+id/phoneOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="(704) 655-6281"
+            app:layout_constraintEnd_toEndOf="@+id/hoursOverlay"
+            app:layout_constraintStart_toStartOf="@+id/hoursOverlay"
+            app:layout_constraintTop_toBottomOf="@+id/hoursOverlay" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scaleX="65"
+            android:text="\_"
+            app:layout_constraintEnd_toEndOf="@+id/innerLayout"
+            app:layout_constraintStart_toStartOf="@+id/innerLayout"
+            app:layout_constraintTop_toBottomOf="@+id/phoneOverlay" />
+
+        <TextView
+            android:id="@+id/busyImageOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⦿"
+            android:textColor="#D11818"
+            android:textSize="96sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView23"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/busyOverlay" />
+
+        <TextView
+            android:id="@+id/busyOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Level:\nBusy"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/textView23"
+            app:layout_constraintStart_toStartOf="@+id/innerLayout"
+            app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expected Traffic"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+            app:layout_constraintStart_toStartOf="@+id/imageView10"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/chart"
+            app:layout_constraintBottom_toBottomOf="@+id/busyImageOverlay"
+            app:layout_constraintEnd_toEndOf="@+id/innerLayout"
+            app:layout_constraintStart_toEndOf="@+id/textView32"
+            app:layout_constraintTop_toTopOf="@+id/busyOverlay" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/diner"
+            app:layout_constraintBottom_toTopOf="@+id/textView23"
+            app:layout_constraintEnd_toEndOf="@+id/innerLayout"
+            app:layout_constraintStart_toEndOf="@+id/textView32"
+            app:layout_constraintTop_toTopOf="@+id/textView32" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

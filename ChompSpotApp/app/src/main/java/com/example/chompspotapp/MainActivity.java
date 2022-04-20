@@ -3,12 +3,12 @@ package com.example.chompspotapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements MapView.mapViewFragmentListener,
     Menu.menuFragmentListener, AboutUs.aboutFragmentListener, ContactUs.contactFragmentListener,
-    ListSearch.listViewFragmentListener, AddBusiness.businessFragmentListener,
-        Temp.TempFragmentListener, Temp2.listViewFragmentListener {
+    ListSearchAdapter.listViewFragmentListener, AddBusiness.businessFragmentListener,
+        MapOverlay.TempFragmentListener,
+    BusinessAdapter.businessAdapterListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,36 +22,16 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public void goToMenu() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
                 new Menu()).commit();
-    }
-
-    @Override
-    public void goToTemp() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
-                new Temp()).commit();
-    }
-
-    @Override
-    public void goToTemp2() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
-                new Temp2()).commit();
-    }
-
-    @Override
+    }    @Override
     public void goToMapView() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
                 new MapView()).commit();
     }
 
     @Override
-    public void goToMapSearch() {
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
-        //        new MapSearch()).commit();
-    }
-
-    @Override
-    public void goToListSearch() {
+    public void goToListSearch(String s) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
-                new ListSearch()).commit();
+                ListSearchAdapter.newInstance(s)).commit();
     }
 
     @Override
@@ -70,5 +50,19 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public void goToBusiness() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
                 new AddBusiness()).commit();
+    }
+
+    @Override
+    public void goToMap(Business bus) {
+        System.out.println(bus);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
+                new MapView()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentView,
+                MapOverlay.newInstance(bus)).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void returnToMapView() {
+        getSupportFragmentManager().popBackStack();
     }
 }
