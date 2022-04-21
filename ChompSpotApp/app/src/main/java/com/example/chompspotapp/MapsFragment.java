@@ -4,16 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsFragment extends Fragment {
@@ -31,11 +35,29 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for(int i = 0; i < 4; i++) {
                 LatLng sydney = new LatLng(MainActivity.cache[i].getLatitude(), MainActivity.cache[i].getLongitude());
                 googleMap.addMarker(new MarkerOptions().position(sydney).title(MainActivity.cache[i].getName()));
+                builder.include(new LatLng(MainActivity.cache[i].getLatitude(),MainActivity.cache[i].getLongitude()));
+
+                int finalI = i;
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker) {
+                        mfListener.goToMap(MainActivity.cache[finalI]);
+                        return false;
+                    }
+                });
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             }
+            LatLngBounds bounds = builder.build();
+            int padding = 0; // offset from edges of the map in pixels
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width,height, padding);
+
+            googleMap.moveCamera(cu);
         }
     };
 
@@ -55,5 +77,20 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof MapOverlay.TempFragmentListener)
+            mfListener = (mapFragListener) context;
+        else
+            throw new RuntimeException(context.toString() + " must implement mapFragListener.");
+    }
+
+    mapFragListener mfListener;
+
+    interface mapFragListener {
+        void goToMap(Business bus);;
     }
 }

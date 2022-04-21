@@ -4,10 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class MainActivity extends AppCompatActivity implements MapView.mapViewFragmentListener,
     Menu.menuFragmentListener, AboutUs.aboutFragmentListener, ContactUs.contactFragmentListener,
     ListSearchAdapter.listViewFragmentListener, AddBusiness.businessFragmentListener,
-        MapOverlay.TempFragmentListener,
+        MapOverlay.TempFragmentListener, MapsFragment.mapFragListener,
     BusinessAdapter.businessAdapterListener {
 
     public static Business[] cache= new Business[20];
@@ -31,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
             cache[i] = new Business(name, type, hours, distance, busy, address, phone, latitude, longitude);
         }*/
         //TODO Delete after json implementation
-        cache[0] = new Business("Mel's Diner","American","5 AM-6 PM", "0.6", "busy", "651 N. Ave", "(704) 655-6281", 1, 2);
-        cache[1] = new Business("Taco Shack","Mexican","8 AM-9 PM","2.3","slow", "331 5th St", "(704) 635-5175", 3, 3);
-        cache[2] = new Business("Chx Coop","American","12 PM-10 PM","5.3","moderate", "221 Kentucky Blvd", "(704) 625-1331", 5, 4);
-        cache[3] = new Business("Bob's Burgers","Canadian","6 AM-10 PM","7.3","slow", "9201 Hamster Lane", "(704) 644-4098", 7, 5);
+        cache[0] = new Business("Sovi Marketplace","American","11 AM-8 PM", "0.6", "busy", "8917 Johnson Alumni Way", "(704) 687-8119", 35.30288798821443, -80.73500740370314);
+        cache[1] = new Business("Peets Coffee and Tea","American","7:30AM–11PM","2.3","slow", "410 Library Ln", "(704) 687-1185", 35.30558342421959, -80.7321250016825);
+        cache[2] = new Business("Dumpling Girls","American","11AM–8:30PM","5.3","moderate", "9330 Sandburg Ave", "(704) 421-4409", 35.300826960789486, -80.7283396434796);
+        cache[3] = new Business("Subway","American","\t10:30AM–3PM","4.3","slow", "9025 University Rd", "(704) 687-0688", 35.3053975247239, -80.73344656941214);
 
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentView,
