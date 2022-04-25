@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 public class MainActivity extends AppCompatActivity implements MapView.mapViewFragmentListener,
     Menu.menuFragmentListener, AboutUs.aboutFragmentListener, ContactUs.contactFragmentListener,
     ListSearch.listViewFragmentListener, AddBusiness.businessFragmentListener,
-        Temp.TempFragmentListener, Temp2.listViewFragmentListener {
+        Temp.TempFragmentListener, Temp2.listViewFragmentListener, LoginFragment.LoginFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,5 +70,17 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public void goToBusiness() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
                 new AddBusiness()).commit();
+    }
+
+    @Override
+    public void submitLogin() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
+                new Menu()).commit();
+    }
+
+    @Override
+    public void goToSignup() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
+                new RegisterFragment()).commit();
     }
 }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ChompSpot App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="map_view">Map View</string>
     <string name="search">Search</string>
     <string name="menu">Menu</string>
@@ -17,6 +16,10 @@
     <string name="about_us">About Us</string>
     <string name="contact_us">Contact Us</string>
     <string name="add_business">Add Business</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="account">Create New Account</string>
     <string name="about_us_page">\tWe were founded during the Spring of 2022. What started as a school project, became the app that you see today. \n\n\tOur team, Jake Ballenger, Connor Frunzi, Daniel House, Austin Lowery, and James Nance all worked together to bring you information on the world\'s restaurants and their busyness. \n\n\tWe hope you enjoy our app as much as we enjoyed making it for all of you.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
