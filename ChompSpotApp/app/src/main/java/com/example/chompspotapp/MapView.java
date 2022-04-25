@@ -56,16 +56,17 @@ public class MapView extends Fragment {
         view.findViewById(R.id.search_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mvfListener.goToTemp2();
+                mvfListener.goToListSearch(searchText.getText().toString());
             }
         });
 
-        view.findViewById(R.id.busyMarker).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mvfListener.goToTemp();
-            }
-        });
+//
+//        view.findViewById(R.id.busyMarker).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mvfListener.goToTemp();
+//            }
+//        });
 
         // Inflate the layout for this fragment
         return view;
@@ -84,7 +85,6 @@ public class MapView extends Fragment {
 
     interface mapViewFragmentListener {
         void goToMenu();
-        void goToTemp();
-        void goToTemp2();
+        void goToListSearch(String s);
     }
 }
