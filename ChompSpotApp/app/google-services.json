@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "469476050801",
+    "project_id": "chompspot-844a7",
+    "storage_bucket": "chompspot-844a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469476050801:android:f43141ffd120549556d8d0",
+        "android_client_info": {
+          "package_name": "com.example.chompspotapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469476050801-icrq4v303soavu5uh44q12fodsjei5md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2ixhybS9jbjl249_YSEi-c1KbnMxspAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469476050801-icrq4v303soavu5uh44q12fodsjei5md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
