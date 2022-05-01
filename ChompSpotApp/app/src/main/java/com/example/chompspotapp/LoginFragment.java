@@ -102,6 +102,7 @@ public class LoginFragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 // retrieve the current User Id
+
                                 Log.d(TAG, "onComplete: Logged In Successfully");
                                 Log.d(TAG, "onComplete: " + mAuth.getCurrentUser().getUid());
 
