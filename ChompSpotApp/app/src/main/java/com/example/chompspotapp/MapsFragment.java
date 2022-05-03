@@ -36,7 +36,7 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for(int i = 0; i < 4; i++) {
+            for(int i = 0; i <= (MainActivity.entries); i++) {
                 LatLng sydney = new LatLng(MainActivity.cache[i].getLatitude(), MainActivity.cache[i].getLongitude());
                 googleMap.addMarker(new MarkerOptions().position(sydney).title(MainActivity.cache[i].getName()));
                 builder.include(new LatLng(MainActivity.cache[i].getLatitude(),MainActivity.cache[i].getLongitude()));

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class Business implements Parcelable {
     private String name, type, hours, distance, busy, address, phone;
     private double latitude, longitude;
-
+    private int[] traffic = new int[168];
     public Business (){
         // empty
     }
@@ -20,6 +20,10 @@ public class Business implements Parcelable {
         this.phone = phone;
         this.latitude = latitude;
         this.longitude = longitude;
+
+        /*for(int i = 0; i < 168; i++){
+            this.traffic[i]= traffic[i];
+        }*/
     }
 
     protected Business(Parcel in) {

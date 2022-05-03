@@ -4,14 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity implements MapView.mapViewFragmentListener,
     Menu.menuFragmentListener, AboutUs.aboutFragmentListener, ContactUs.contactFragmentListener,
@@ -20,30 +27,49 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     BusinessAdapter.businessAdapterListener {
 
     public static Business[] cache= new Business[20];
+    public static int entries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO Pull from json to fill out cache
-        /*for(int i = 0; i < 1; i++){
-            String name = "Mel's Diner";
-            String type = "American";
-            String hours = "9 to 10pm";
-            String distance = "2 mi";
-            String busy = "no";
-            String address = "554 lex ave";
-            String phone= "985-988-8966";
-            double latitude = 47.5858;
-            double longitude = -54.5641;
 
-            cache[i] = new Business(name, type, hours, distance, busy, address, phone, latitude, longitude);
-        }*/
-        //TODO Delete after json implementation
-        cache[0] = new Business("Sovi Marketplace","American","11 AM-8 PM", "0.6", "busy", "8917 Johnson Alumni Way", "(704) 687-8119", 35.30288798821443, -80.73500740370314);
-        cache[1] = new Business("Peets Coffee and Tea","American","7:30AM–11PM","2.3","slow", "410 Library Ln", "(704) 687-1185", 35.30558342421959, -80.7321250016825);
-        cache[2] = new Business("Dumpling Girls","American","11AM–8:30PM","5.3","moderate", "9330 Sandburg Ave", "(704) 421-4409", 35.300826960789486, -80.7283396434796);
-        cache[3] = new Business("Subway","American","\t10:30AM–3PM","4.3","slow", "9025 University Rd", "(704) 687-0688", 35.3053975247239, -80.73344656941214);
+        try {
+            JSONObject fileObject= new JSONObject(loadJsonFromAsset());
+            JSONArray arrayOfPlaces = fileObject.getJSONArray("restaurants");
+
+            int counter = 0;
+            //process array
+            for(int i = 0; i < arrayOfPlaces.length(); i++){
+
+                JSONObject placeJsonObject = (JSONObject) arrayOfPlaces.get(i);
+                JSONArray timeArray = placeJsonObject.getJSONArray("week_raw");
+
+                //extract info
+                String name = placeJsonObject.optString("venue_name");
+                String type = placeJsonObject.optString("venue_type");
+                String address = placeJsonObject.optString("venue_address");
+                String hours = placeJsonObject.optString("hours");
+                Double placeLong  = placeJsonObject.optDouble("venue_lng");
+                Double placeLat  = placeJsonObject.optDouble("venue_lat");
+                String phone = placeJsonObject.optString("phone_number");
+                String log = name + " " + address + " " + placeLat + " " + placeLong;
+
+                //TODO implement current location
+                //String distance = distance(placeLat, placeLong, currLat, currLong, "M");
+                //int[] traffic = new int[168];
+
+
+
+                cache[i] = new Business(name,type, hours, "0.6", "busy", address, phone, placeLat, placeLong);
+                //new Business("Sovi Marketplace","American","11 AM-8 PM", "0.6", "busy", "8917 Johnson Alumni Way", "(704) 687-8119", 35.30288798821443, -80.73500740370314);
+                entries = i;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
 
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentView,
@@ -96,5 +122,42 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     @Override
     public void returnToMapView() {
         getSupportFragmentManager().popBackStack();
+    }
+
+    //Sourced from https://www.geodatasource.com/developers/java to calculate distance between
+    // current location and place location
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        else {
+            double theta = lon1 - lon2;
+            double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+            dist = Math.acos(dist);
+            dist = Math.toDegrees(dist);
+            dist = dist * 60 * 1.1515;
+            if (unit.equals("K")) {
+                dist = dist * 1.609344;
+            } else if (unit.equals("N")) {
+                dist = dist * 0.8684;
+            }
+            return (dist);
+        }
+    }
+
+    private String loadJsonFromAsset(){
+        String json = null;
+        try{
+            InputStream inputStream = getAssets().open("Business.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex){
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }
