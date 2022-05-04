@@ -7,10 +7,10 @@ public class Business implements Parcelable {
     private String name, type, hours, distance, busy, address, phone;
     private double latitude, longitude;
     private int[] traffic = new int[168];
-    public Business (){
+    public Business(Business param1){
         // empty
     }
-    public Business(String name, String type, String hours, String distance, String busy, String address, String phone, double latitude, double longitude) {
+    public Business(String name, String type, String hours, String distance, String busy, String address, String phone, double latitude, double longitude, int[] traffic) {
         this.name = name;
         this.type = type;
         this.hours = hours;
@@ -21,9 +21,9 @@ public class Business implements Parcelable {
         this.latitude = latitude;
         this.longitude = longitude;
 
-        /*for(int i = 0; i < 168; i++){
+        for(int i = 0; i < 168; i++){
             this.traffic[i]= traffic[i];
-        }*/
+        }
     }
 
     protected Business(Parcel in) {
@@ -49,7 +49,7 @@ public class Business implements Parcelable {
     };
 
     public Business copy(){
-        return new Business(this.name, this.type, this.hours, this.distance, this.busy, this.address, this.phone, this.latitude, this.longitude);
+        return new Business(this.name, this.type, this.hours, this.distance, this.busy, this.address, this.phone, this.latitude, this.longitude, this.traffic);
     }
 
     public void setName(String name) {
@@ -137,5 +137,9 @@ public class Business implements Parcelable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getTrafficNode(int index){
+        return traffic[index];
     }
 }
