@@ -82,10 +82,9 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
                 }
                 int currHour =LocalDateTime.now().getHour();
                 int currMinute = LocalDateTime.now().getMinute();
-                if(currMinute > 45){
-                    currHour++;
+                if(currMinute > 45) {
+                        currHour++;
                 }
-
                 int currHourIndex;
                 LocalDate today = LocalDate.now();
                 //1 Monday - 7 Sunday
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
                 if(dayValue == 1 & currHour < 6) {
                     currHourIndex = traffic[(167 - (5 - currHour))];
                 }else {
-                    currHourIndex = ((dayValue-1)*24)+(currHour-6);
+                    currHourIndex = traffic[((dayValue-1)*24)+(currHour-6)];
                 }
 
                 String busyLevel;
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
 
                 }
                 
+                name = String.valueOf(currHourIndex);
 
                 cache[i] = new Business(name,type, hours, distance, busyLevel, address, phone, placeLat, placeLong, traffic);
                 entries = i;
