@@ -1,8 +1,14 @@
 package com.example.chompspotapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -19,6 +25,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity implements MapView.mapViewFragmentListener,
     Menu.menuFragmentListener, AboutUs.aboutFragmentListener, ContactUs.contactFragmentListener,
@@ -28,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
 
     public static Business[] cache= new Business[20];
     public static int entries;
+    public static int dayValue;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,19 +61,55 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
                 String type = placeJsonObject.optString("venue_type");
                 String address = placeJsonObject.optString("venue_address");
                 String hours = placeJsonObject.optString("hours");
-                Double placeLong  = placeJsonObject.optDouble("venue_lng");
-                Double placeLat  = placeJsonObject.optDouble("venue_lat");
+                double placeLong  = placeJsonObject.optDouble("venue_lng");
+                double placeLat  = placeJsonObject.optDouble("venue_lat");
                 String phone = placeJsonObject.optString("phone_number");
                 String log = name + " " + address + " " + placeLat + " " + placeLong;
 
                 //TODO implement current location
-                //String distance = distance(placeLat, placeLong, currLat, currLong, "M");
-                //int[] traffic = new int[168];
+                 LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                 Location location = new Location(LocationManager.GPS_PROVIDER);
+                 double currentLat = location.getLatitude();
+                 double currentLong = location.getLongitude();
+                 double distanceUnits = distance(placeLat, placeLong, currentLat, currentLong, "M");
+                 //rounding
+                 distanceUnits = Math.round(distanceUnits*10)/10;
+                 String distance = String.valueOf(distanceUnits);
 
+                int[] traffic = new int[168];
+                for(int j = 0; j < timeArray.length(); j++){
+                    traffic[j]= (int) timeArray.opt(j);
+                }
+                int currHour =LocalDateTime.now().getHour();
+                int currMinute = LocalDateTime.now().getMinute();
+                if(currMinute > 45){
+                    currHour++;
+                }
 
+                int currHourIndex;
+                LocalDate today = LocalDate.now();
+                //1 Monday - 7 Sunday
+                DayOfWeek day = today.getDayOfWeek();
+                dayValue = day.getValue();
+                if(dayValue == 1 & currHour < 6) {
+                    currHourIndex = traffic[(167 - (5 - currHour))];
+                }else {
+                    currHourIndex = ((dayValue-1)*24)+(currHour-6);
+                }
 
-                cache[i] = new Business(name,type, hours, "0.6", "busy", address, phone, placeLat, placeLong);
-                //new Business("Sovi Marketplace","American","11 AM-8 PM", "0.6", "busy", "8917 Johnson Alumni Way", "(704) 687-8119", 35.30288798821443, -80.73500740370314);
+                String busyLevel;
+                if (currHourIndex < 35){
+                    busyLevel = "Slow";
+                } else if (35 < currHourIndex && currHourIndex < 70){
+                    busyLevel = "Moderate";
+                } else{
+                    busyLevel = "Busy";
+
+                }
+
+                name = String.valueOf(currHourIndex);
+
+                cache[i] = new Business(name,type, hours, distance, busyLevel, address, phone, placeLat, placeLong, traffic);
                 entries = i;
             }
         } catch (JSONException e) {
