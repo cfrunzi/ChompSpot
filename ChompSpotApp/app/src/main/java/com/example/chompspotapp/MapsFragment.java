@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -38,7 +41,27 @@ public class MapsFragment extends Fragment {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for(int i = 0; i <= (MainActivity.entries); i++) {
                 LatLng sydney = new LatLng(MainActivity.cache[i].getLatitude(), MainActivity.cache[i].getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(sydney).title(MainActivity.cache[i].getName()));
+                MarkerOptions marker = new MarkerOptions().position(sydney).title(MainActivity.cache[i].getName());
+                String busy = MainActivity.cache[i].getBusy();
+
+                Bitmap bitMap;
+
+                if (busy == "Busy") {
+                    bitMap = BitmapFactory.decodeResource(getResources(), R.drawable.busy);
+                } else if (busy == "Moderate") {
+                    bitMap = BitmapFactory.decodeResource(getResources(), R.drawable.moderate);
+                } else{
+                    bitMap = BitmapFactory.decodeResource(getResources(), R.drawable.slow);
+                }
+
+                //Scaling map markers
+                double mod = .9;
+                int width =(int) (mod*90);
+                int height = (int) (mod*149);
+
+                Bitmap scaledMap = Bitmap.createScaledBitmap(bitMap, width, height, false);
+                marker.icon(BitmapDescriptorFactory.fromBitmap(scaledMap));
+                googleMap.addMarker(marker);
                 builder.include(new LatLng(MainActivity.cache[i].getLatitude(),MainActivity.cache[i].getLongitude()));
 
                 int finalI = i;

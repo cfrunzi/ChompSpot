@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
 
                 }
                 
-                name = String.valueOf(currHourIndex);
 
                 cache[i] = new Business(name,type, hours, distance, busyLevel, address, phone, placeLat, placeLong, traffic);
                 entries = i;
