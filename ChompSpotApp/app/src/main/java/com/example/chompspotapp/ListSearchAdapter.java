@@ -51,6 +51,7 @@ public class ListSearchAdapter extends Fragment {
         for(int i = 0; i <= MainActivity.entries; i++){
             businesses.add(MainActivity.cache[i]);
         }
+        System.out.println(businesses.get(0).toString());
         /*
         // temporary variables until maps implemented
         businesses.add(new Business("Mel's Diner","American","5 AM-6 PM", "0.6", "busy", "651 N. Ave", "(704) 655-6281", 1, 1));
