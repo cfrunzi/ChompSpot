@@ -66,8 +66,8 @@ public class TrafficChart extends Fragment {
 
         }
 
-        for(int i = 0; i < 24; i++){
-            int index = (int) (MainActivity.dayValue-1)* 24;
+        for(int i = 0; i < 24; i++)+{
+            int index = (int) (MainActivity.dayValue - 1) * 24 + i;
 
             //TODO make business not null
             if (business != null){
