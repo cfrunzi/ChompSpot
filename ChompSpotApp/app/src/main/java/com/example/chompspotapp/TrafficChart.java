@@ -40,14 +40,6 @@ public class TrafficChart extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrafficChart.
-     */
 
     public static TrafficChart newInstance(Business param1) {
         TrafficChart fragment = new TrafficChart();
@@ -66,6 +58,14 @@ public class TrafficChart extends Fragment {
 
         }
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_traffic_chart, container, false);
+
         for(int i = 0; i < 24; i++){
             int index = (int) (MainActivity.dayValue - 1) * 24 + i;
 
@@ -74,38 +74,21 @@ public class TrafficChart extends Fragment {
                 traffic[i] = business.getTrafficNode(index);
             }
         }
-        
-        chart = (BarChart) getActivity().findViewById(R.id.bar_chart);
+
+        chart = (BarChart) view.findViewById(R.id.bar_chart);
         ArrayList<BarEntry> values = new ArrayList<>();
         for(int i = 0; i < 24; i++){
-            values.add(new BarEntry(0, traffic[i]));
+            values.add(new BarEntry((float)i, traffic[i]));
         }
         BarDataSet dataSet1 = new BarDataSet(values, "Expected Traffic Today");
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet1);
-        
+
         BarData data = new BarData(dataSets);
-        
-
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof MapOverlay.TempFragmentListener)
-            tfListener = (MapOverlay.TempFragmentListener) context;
-        else
-            throw new RuntimeException(context.toString() + " must implement TempFragmentListener.");
-    }
-
-    MapOverlay.TempFragmentListener tfListener;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+        chart.setData(data);
         
         // Inflate the layout for this fragment]
-        return inflater.inflate(R.layout.fragment_traffic_chart, container, false);
+        return view;
 
     }
 }
