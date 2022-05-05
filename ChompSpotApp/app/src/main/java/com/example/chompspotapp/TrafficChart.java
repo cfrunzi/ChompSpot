@@ -92,9 +92,11 @@ public class TrafficChart extends Fragment {
         dataSet1.setColors(colorCodes);
         dataSets.add(dataSet1);
 
+
         BarData data = new BarData(dataSets);
         data.setDrawValues(false);
         chart.setData(data);
+        chart.getDescription().setEnabled(false);
         
         // Inflate the layout for this fragment]
         return view;
