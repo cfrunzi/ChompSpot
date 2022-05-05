@@ -1,5 +1,4 @@
 {
-  //TODO business hours arrays
   "restaurants": [
     {
       "venue_name": "Peppervine",
@@ -1076,7 +1075,7 @@
       "venue_address": "2201 South Blvd Ste 130 Charlotte, NC 28203 United States",
       "venue_lat":  35.2066026,
       "venue_lng": -80.8609137,
-      "hours": "11:30AM-2:30PM \ 5PM-10PM",
+      "hours": "11:30AM-2:30PM / 5PM-10PM",
       "phone_number": "(980) 495-2253",
       "venue_type": "Japanese/Peruvian",
       "week_raw":   [

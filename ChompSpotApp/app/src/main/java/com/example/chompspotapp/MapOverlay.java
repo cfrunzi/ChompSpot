@@ -61,14 +61,14 @@ public class MapOverlay extends Fragment {
         hours.setText(business.getHours());
         busy.setText(business.getBusy().toUpperCase());
 
-        if (business.getBusy().equals("busy"))
+        if (business.getBusy().equals("Busy"))
             busyImg.setTextColor(Color.parseColor("#D12B1F"));
-        else if (business.getBusy().equals("moderate"))
+        else if (business.getBusy().equals("Moderate"))
             busyImg.setTextColor(Color.parseColor("#E8D633"));
         else
             busyImg.setTextColor(Color.parseColor("#3CBD41"));
 
-        // Inflate the layout for this fragment
+        /* Inflate the layout for this fragment */
         return view;
     }
 
@@ -86,4 +86,5 @@ public class MapOverlay extends Fragment {
     interface TempFragmentListener {
         void returnToMapView();
     }
+
 }
