@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public static int entries;
     public static int dayValue;
 
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
