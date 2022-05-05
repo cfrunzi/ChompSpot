@@ -59,7 +59,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Name"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView32"
+                app:layout_constraintEnd_toEndOf="@+id/innerLayout"
                 app:layout_constraintStart_toStartOf="@+id/innerLayout"
                 app:layout_constraintTop_toTopOf="@+id/innerLayout" />
 
@@ -67,10 +67,12 @@
                 android:id="@+id/addressOverlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="651 N. Avenue"
-                app:layout_constraintEnd_toEndOf="@+id/nameOverlay"
-                app:layout_constraintStart_toStartOf="@+id/nameOverlay"
+                app:layout_constraintEnd_toEndOf="@+id/innerLayout"
+                app:layout_constraintStart_toStartOf="@+id/innerLayout"
                 app:layout_constraintTop_toBottomOf="@+id/nameOverlay" />
 
             <TextView
@@ -140,18 +142,6 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView9"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/diner"
-                app:layout_constraintBottom_toTopOf="@+id/textView23"
-                app:layout_constraintEnd_toEndOf="@+id/innerLayout"
-                app:layout_constraintStart_toEndOf="@+id/textView32"
-                app:layout_constraintTop_toTopOf="@+id/textView32" />
-
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView2"
                 android:name="com.example.chompspotapp.TrafficChart"
@@ -159,9 +149,7 @@
                 android:layout_height="113dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView26"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView11"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

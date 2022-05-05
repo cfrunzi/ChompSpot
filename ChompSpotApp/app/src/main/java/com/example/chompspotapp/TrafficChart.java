@@ -55,7 +55,6 @@ public class TrafficChart extends Fragment {
 
         if(getArguments() != null){
             business = getArguments().getParcelable(ARG_PARAM1);
-
         }
 
     }
@@ -65,7 +64,7 @@ public class TrafficChart extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_traffic_chart, container, false);
-
+        business = MainActivity.tempBus.copy();
         for(int i = 0; i < 24; i++){
             int index = (int) (MainActivity.dayValue - 1) * 24 + i;
 
@@ -77,14 +76,24 @@ public class TrafficChart extends Fragment {
 
         chart = (BarChart) view.findViewById(R.id.bar_chart);
         ArrayList<BarEntry> values = new ArrayList<>();
+        int[] colorCodes = new int[24];
         for(int i = 0; i < 24; i++){
             values.add(new BarEntry((float)i, traffic[i]));
+            if (traffic[i] > 66){
+                colorCodes[i] = Color.RED;
+            } else if (traffic[i] > 33) {
+                colorCodes[i] = Color.YELLOW;
+            } else {
+                colorCodes[i] = Color.GREEN;
+            }
         }
         BarDataSet dataSet1 = new BarDataSet(values, "Expected Traffic Today");
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSet1.setColors(colorCodes);
         dataSets.add(dataSet1);
 
         BarData data = new BarData(dataSets);
+        data.setDrawValues(false);
         chart.setData(data);
         
         // Inflate the layout for this fragment]
