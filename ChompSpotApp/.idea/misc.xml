@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Connor/AndroidStudioProjects/ChompSpot/ChompSpotApp/app/src/main/res/layout/fragment_login.xml" value="0.1640625" />
         <entry key="..\:/Users/Connor/AndroidStudioProjects/ChompSpot/ChompSpotApp/app/src/main/res/layout/fragment_map_view.xml" value="0.22" />
+        <entry key="..\:/Users/Connor/AndroidStudioProjects/ChompSpot/ChompSpotApp/app/src/main/res/layout/fragment_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Stian/Android Studio/ChompSpotApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Stian/Android Studio/ChompSpotApp/app/src/main/res/layout/fragment_about_us.xml" value="0.264" />
         <entry key="..\:/Users/Stian/Android Studio/ChompSpotApp/app/src/main/res/layout/fragment_add_business.xml" value="0.4" />

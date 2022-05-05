@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -39,86 +40,100 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public static int entries;
     public static int dayValue;
 
+    private FirebaseAuth mAuth;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        try {
-            JSONObject fileObject= new JSONObject(loadJsonFromAsset());
-            JSONArray arrayOfPlaces = fileObject.getJSONArray("restaurants");
-
-            int counter = 0;
-            //process array
-            for(int i = 0; i < arrayOfPlaces.length(); i++){
-
-                JSONObject placeJsonObject = (JSONObject) arrayOfPlaces.get(i);
-                JSONArray timeArray = placeJsonObject.getJSONArray("week_raw");
-
-                //extract info
-                String name = placeJsonObject.optString("venue_name");
-                String type = placeJsonObject.optString("venue_type");
-                String address = placeJsonObject.optString("venue_address");
-                String hours = placeJsonObject.optString("hours");
-                double placeLong  = placeJsonObject.optDouble("venue_lng");
-                double placeLat  = placeJsonObject.optDouble("venue_lat");
-                String phone = placeJsonObject.optString("phone_number");
-                String log = name + " " + address + " " + placeLat + " " + placeLong;
-
-                //TODO implement current location
-                 LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                 Location location = new Location(LocationManager.GPS_PROVIDER);
-                 double currentLat = location.getLatitude();
-                 double currentLong = location.getLongitude();
-                 double distanceUnits = distance(placeLat, placeLong, currentLat, currentLong, "M");
-                 //rounding
-                 distanceUnits = Math.round(distanceUnits*10)/10;
-                 String distance = String.valueOf(distanceUnits);
-
-                int[] traffic = new int[168];
-                for(int j = 0; j < timeArray.length(); j++){
-                    traffic[j]= (int) timeArray.opt(j);
-                }
-                int currHour =LocalDateTime.now().getHour();
-                int currMinute = LocalDateTime.now().getMinute();
-                if(currMinute > 45) {
-                        currHour++;
-                }
-                int currHourIndex;
-                LocalDate today = LocalDate.now();
-                //1 Monday - 7 Sunday
-                DayOfWeek day = today.getDayOfWeek();
-                dayValue = day.getValue();
-                if(dayValue == 1 & currHour < 6) {
-                    currHourIndex = traffic[(167 - (5 - currHour))];
-                }else {
-                    currHourIndex = traffic[((dayValue-1)*24)+(currHour-6)];
-                }
-
-                String busyLevel;
-                if (currHourIndex < 35){
-                    busyLevel = "Slow";
-                } else if (35 < currHourIndex && currHourIndex < 70){
-                    busyLevel = "Moderate";
-                } else{
-                    busyLevel = "Busy";
-
-                }
-                
-
-                cache[i] = new Business(name,type, hours, distance, busyLevel, address, phone, placeLat, placeLong, traffic);
-                entries = i;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentView,
-                new MapView()).commit();
+        mAuth = FirebaseAuth.getInstance(); // get current instance of the authenticator
+
+        // depending on whether the user is logged in or not (credentials match),
+        // display a different fragment so that the user doesn't have to login every time
+
+        // if there is no user logged in, pull up login fragment
+        if(mAuth.getCurrentUser() == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragmentView, new LoginFragment()).commit();
+        }
+        else{
+            try {
+                JSONObject fileObject= new JSONObject(loadJsonFromAsset());
+                JSONArray arrayOfPlaces = fileObject.getJSONArray("restaurants");
+
+                int counter = 0;
+                //process array
+                for(int i = 0; i < arrayOfPlaces.length(); i++){
+
+                    JSONObject placeJsonObject = (JSONObject) arrayOfPlaces.get(i);
+                    JSONArray timeArray = placeJsonObject.getJSONArray("week_raw");
+
+                    //extract info
+                    String name = placeJsonObject.optString("venue_name");
+                    String type = placeJsonObject.optString("venue_type");
+                    String address = placeJsonObject.optString("venue_address");
+                    String hours = placeJsonObject.optString("hours");
+                    double placeLong  = placeJsonObject.optDouble("venue_lng");
+                    double placeLat  = placeJsonObject.optDouble("venue_lat");
+                    String phone = placeJsonObject.optString("phone_number");
+                    String log = name + " " + address + " " + placeLat + " " + placeLong;
+
+                    //TODO implement current location
+                    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    Location location = new Location(LocationManager.GPS_PROVIDER);
+                    double currentLat = location.getLatitude();
+                    double currentLong = location.getLongitude();
+                    double distanceUnits = distance(placeLat, placeLong, currentLat, currentLong, "M");
+                    //rounding
+                    distanceUnits = Math.round(distanceUnits*10)/10;
+                    String distance = String.valueOf(distanceUnits);
+
+                    int[] traffic = new int[168];
+                    for(int j = 0; j < timeArray.length(); j++){
+                        traffic[j]= (int) timeArray.opt(j);
+                    }
+                    int currHour =LocalDateTime.now().getHour();
+                    int currMinute = LocalDateTime.now().getMinute();
+                    if(currMinute > 45) {
+                        currHour++;
+                    }
+                    int currHourIndex;
+                    LocalDate today = LocalDate.now();
+                    //1 Monday - 7 Sunday
+                    DayOfWeek day = today.getDayOfWeek();
+                    dayValue = day.getValue();
+                    if(dayValue == 1 & currHour < 6) {
+                        currHourIndex = traffic[(167 - (5 - currHour))];
+                    }else {
+                        currHourIndex = traffic[((dayValue-1)*24)+(currHour-6)];
+                    }
+
+                    String busyLevel;
+                    if (currHourIndex < 35){
+                        busyLevel = "Slow";
+                    } else if (35 < currHourIndex && currHourIndex < 70){
+                        busyLevel = "Moderate";
+                    } else{
+                        busyLevel = "Busy";
+
+                    }
+
+
+                    cache[i] = new Business(name,type, hours, distance, busyLevel, address, phone, placeLat, placeLong, traffic);
+                    entries = i;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // otherwise we pull up the forums fragment
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragmentView, new Menu(),
+                            "menu").commit();
+        }
+        //getSupportFragmentManager().beginTransaction().add(R.id.fragmentView,
+                //new MapView()).commit();
     }
 
     @Override
@@ -153,6 +168,11 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public void goToBusiness() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
                 new AddBusiness()).commit();
+    }
+
+    @Override
+    public void logout() {
+
     }
 
     @Override
