@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.json.JSONObject;
 
 import java.io.File;
@@ -22,27 +20,11 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     BusinessAdapter.businessAdapterListener {
 
     public static Business[] cache= new Business[20];
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance(); // get current instance of the authenticator
-
-        // depending on whether the user is logged in or not (credentials match),
-        // display a different fragment so that the user doesn't have to login every time
-
-        // if there is no user logged in, pull up login fragment
-        if(mAuth.getCurrentUser() == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragmentView, new LoginFragment()).commit();
-        }
-        else{
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragmentView, new Menu()).commit();
-        }
         //TODO Pull from json to fill out cache
         /*for(int i = 0; i < 1; i++){
             String name = "Mel's Diner";
@@ -63,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
         cache[2] = new Business("Dumpling Girls","American","11AM–8:30PM","5.3","moderate", "9330 Sandburg Ave", "(704) 421-4409", 35.300826960789486, -80.7283396434796);
         cache[3] = new Business("Subway","American","\t10:30AM–3PM","4.3","slow", "9025 University Rd", "(704) 687-0688", 35.3053975247239, -80.73344656941214);
 
-
+        setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentView,
                 new MapView()).commit();
     }
@@ -100,11 +82,6 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     public void goToBusiness() {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentView,
                 new AddBusiness()).commit();
-    }
-
-    @Override
-    public void logout() {
-
     }
 
     @Override
