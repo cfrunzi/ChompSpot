@@ -142,4 +142,10 @@ public class Business implements Parcelable {
     public int getTrafficNode(int index){
         return traffic[index];
     }
+
+    public String toString(){
+        return "Name: " + name + "\nType: " + type + "\nHours: " + hours + "\nDistance: " + distance +
+                "\nBusy: " + busy + "\nAddress: " + address + "\nPhone: " + phone + "\nLat: " + latitude +
+                "\nLong: " + longitude;
+    }
 }

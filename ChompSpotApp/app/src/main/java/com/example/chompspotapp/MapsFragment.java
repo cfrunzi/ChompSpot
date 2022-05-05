@@ -62,13 +62,21 @@ public class MapsFragment extends Fragment {
                 Bitmap scaledMap = Bitmap.createScaledBitmap(bitMap, width, height, false);
                 marker.icon(BitmapDescriptorFactory.fromBitmap(scaledMap));
                 googleMap.addMarker(marker);
-                builder.include(new LatLng(MainActivity.cache[i].getLatitude(),MainActivity.cache[i].getLongitude()));
+                LatLng ltlng = new LatLng(MainActivity.cache[i].getLatitude(),MainActivity.cache[i].getLongitude());
+                builder.include(ltlng);
 
-                int finalI = i;
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
-                        mfListener.goToMap(MainActivity.cache[finalI]);
+                        int index = 0;
+                        for (int j = 0; j < MainActivity.cache.length; j++){
+                            if (marker.getPosition().equals(new LatLng(MainActivity.cache[j].getLatitude(),
+                                    MainActivity.cache[j].getLongitude()))){
+                                index = j;
+                                break;
+                            }
+                        }
+                        mfListener.goToMap(MainActivity.cache[index]);
                         return false;
                     }
                 });
@@ -114,6 +122,6 @@ public class MapsFragment extends Fragment {
     mapFragListener mfListener;
 
     interface mapFragListener {
-        void goToMap(Business bus);;
+        void goToMap(Business bus);
     }
 }

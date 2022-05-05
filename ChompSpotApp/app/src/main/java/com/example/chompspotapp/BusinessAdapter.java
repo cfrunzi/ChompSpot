@@ -65,9 +65,9 @@ public class BusinessAdapter extends ArrayAdapter<Business> implements Filterabl
         busDist.setText(business.getDistance() + " mi");
         busBusyText.setText(business.getBusy().toUpperCase());
 
-        if (business.getBusy().equals("busy"))
+        if (business.getBusy().equalsIgnoreCase("busy"))
             busBusyCircle.setTextColor(Color.parseColor("#D12B1F"));
-        else if (business.getBusy().equals("moderate"))
+        else if (business.getBusy().equalsIgnoreCase("moderate"))
             busBusyCircle.setTextColor(Color.parseColor("#E8D633"));
         else
             busBusyCircle.setTextColor(Color.parseColor("#3CBD41"));
