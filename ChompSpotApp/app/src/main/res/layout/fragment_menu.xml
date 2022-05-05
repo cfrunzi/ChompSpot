@@ -67,6 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/add_business"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/contact_us_button"
         app:layout_constraintStart_toStartOf="@+id/contact_us_button"
         app:layout_constraintTop_toBottomOf="@+id/contact_us_button" />
@@ -98,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Logout"
-        app:layout_constraintEnd_toEndOf="@+id/add_business_button"
-        app:layout_constraintStart_toStartOf="@+id/add_business_button"
-        app:layout_constraintTop_toBottomOf="@+id/add_business_button" />
+        app:layout_constraintEnd_toEndOf="@+id/contact_us_button"
+        app:layout_constraintStart_toStartOf="@+id/contact_us_button"
+        app:layout_constraintTop_toBottomOf="@+id/contact_us_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
