@@ -79,7 +79,7 @@ public class Menu extends Fragment {
         view.findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mfListener.logout();
             }
         });
         // Inflate the layout for this fragment

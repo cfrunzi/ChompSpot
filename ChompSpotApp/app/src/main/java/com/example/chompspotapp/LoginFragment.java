@@ -140,6 +140,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        mListener = (LoginFragmentListener) context;
     }
 
     LoginFragmentListener mListener;

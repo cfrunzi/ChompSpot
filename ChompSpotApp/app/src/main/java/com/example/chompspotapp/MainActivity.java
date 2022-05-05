@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
     Menu.menuFragmentListener, AboutUs.aboutFragmentListener, ContactUs.contactFragmentListener,
     ListSearchAdapter.listViewFragmentListener, AddBusiness.businessFragmentListener,
         MapOverlay.TempFragmentListener, MapsFragment.mapFragListener,
-    BusinessAdapter.businessAdapterListener {
+    BusinessAdapter.businessAdapterListener, LoginFragment.LoginFragmentListener, RegisterFragment.SignupFragmentListener {
 
     public static Business[] cache= new Business[20];
     public static int entries;
@@ -172,7 +172,9 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
 
     @Override
     public void logout() {
-
+        FirebaseAuth.getInstance().signOut();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentView, new LoginFragment()).commit();
     }
 
     @Override
@@ -224,5 +226,29 @@ public class MainActivity extends AppCompatActivity implements MapView.mapViewFr
             return null;
         }
         return json;
+    }
+
+    @Override
+    public void submitLogin() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentView, new Menu()).commit();
+    }
+
+    @Override
+    public void goToSignup() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentView, new RegisterFragment()).commit();
+    }
+
+    @Override
+    public void registerInfo() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentView, new Menu()).commit();
+    }
+
+    @Override
+    public void returnToLogin() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentView, new LoginFragment()).commit();
     }
 }

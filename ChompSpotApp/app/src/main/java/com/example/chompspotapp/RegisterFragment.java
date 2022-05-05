@@ -53,7 +53,8 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
@@ -61,13 +62,21 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Create New Account");
 
+        binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.returnToLogin();
+            }
+        });
+
         binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // convert the information into strings
-                String name = editTextName.getText().toString();
-                String email = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
+                String name = binding.editTextPersonName.getText().toString();
+                String email = binding.editEmailAddress.getText().toString();
+                String password = binding.editTextPassword.getText().toString();
+
 
                 // check the current thread
                 Log.d(TAG, "onComplete: " + Thread.currentThread().getId());
