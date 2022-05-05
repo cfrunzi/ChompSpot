@@ -91,4 +91,15 @@
         app:layout_constraintEnd_toStartOf="@+id/back_button"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="312dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="@+id/add_business_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/add_business_button"
+        app:layout_constraintTop_toBottomOf="@+id/add_business_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
